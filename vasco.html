@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog do Vasco | Notícias e Conteúdo do Gigante</title>
+    <title>Garagem do Vasco | +100 Superesportivos</title>
     <style>
         /* Variáveis de Tema (Modo Escuro Padrão) */
         :root {
@@ -106,7 +106,7 @@
             border-color: #ff0000;
         }
 
-        /* Grid de Notícias */
+        /* Grid de Carros */
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -116,7 +116,7 @@
             margin: 0 auto;
         }
 
-        /* Cartão do Post */
+        /* Cartão do Carro */
         .card {
             background-color: var(--bg-card);
             border-radius: 10px;
@@ -138,7 +138,7 @@
             width: 100%;
             height: 180px;
             object-fit: cover;
-            background-color: #222; /* Fallback caso a internet mude */
+            background-color: #222;
         }
 
         .card-content {
@@ -200,85 +200,79 @@
             </button>
         </div>
 
-        <h1>Blog do <span>Vasco</span></h1>
+        <h1>Garagem do <span>Vasco</span></h1>
         <div class="busca-container">
-            <input type="text" id="busca" class="busca-input" placeholder="Pesquise entre as notícias..." oninput="filtrarPosts()">
+            <input type="text" id="busca" class="busca-input" placeholder="Pesquise entre os 100+ carros..." oninput="filtrarCarros()">
         </div>
     </header>
 
-    <main class="container" id="vitrine-posts"></main>
+    <main class="container" id="vitrine-carros"></main>
 
-    <audio id="som-torcida" src="https://mixkit.co" preload="auto"></audio>
+    <!-- Som do motor de volta -->
+    <audio id="som-motor" src="https://soundjay.com" preload="auto"></audio>
 
     <footer>
-        <p>&copy; 2026 Blog do Vasco - Conteúdo feito por e para vascaínos.</p>
+        <p>&copy; 2026 Garagem do Vasco - Superesportivos Temáticos.</p>
     </footer>
 
     <script>
-        const listaPosts = [];
-        const temasNoticias = [
-            "Bastidores de São Januário", 
-            "Análise Tática do Elenco", 
-            "Preparação para o Próximo Jogo", 
-            "Destaques da Base Forte", 
-            "História do Gigante da Colina", 
-            "Opinião: O Sentimento Não Para"
-        ];
+        const listaCarros = [];
+        const marcas = ["Ferrari", "Lamborghini", "Porsche", "McLaren", "Aston Martin", "Bugatti", "Audi R8", "Nissan GTR", "Corvette", "Mustang Shelby"];
         
-        // Imagens utilizando IDs fixos do Picsum que simulam estádios, gramados e texturas esportivas escuras
-        const imagensFutebol = [
-            "https://picsum.photos",
-            "https://picsum.photos",
-            "https://picsum.photos",
-            "https://picsum.photos"
+        // Links diretos e funcionais de alta qualidade focados estritamente em carros esportivos modernos
+        const imagensCarros = [
+            "https://unsplash.com", // Porsche
+            "https://unsplash.com", // Carro Esportivo
+            "https://unsplash.com", // Esportivo Amarelo
+            "https://unsplash.com"  // Esportivo Moderno
         ];
 
-        // Gera os 102 posts automaticamente
+        // Gera os 102 carros esportivos automaticamente
         for (let i = 1; i <= 102; i++) {
-            const temaAleatorio = temasNoticias[Math.floor(Math.random() * temasNoticias.length)];
-            const imagemAleatoria = imagensFutebol[Math.floor(Math.random() * imagensFutebol.length)];
+            const marcaAleatoria = marcas[Math.floor(Math.random() * marcas.length)];
+            const imagemAleatoria = imagensCarros[Math.floor(Math.random() * imagensCarros.length)];
             
-            listaPosts.push({
+            listaCarros.push({
                 id: i,
-                titulo: `${temaAleatorio} - Artigo #${i}`,
-                desc: `Acompanhe as últimas informações e debates sobre o dia a dia do Club de Regatas Vasco da Gama.`,
+                nome: `${marcaAleatoria} Vasco Edition V${Math.random() > 0.5 ? '8' : '12'}`,
+                desc: `Edição exclusiva com acabamento em fibra de carbono, aerodinâmica customizada e ronco agressivo de pista.`,
                 img: imagemAleatoria
             });
         }
 
-        const vitrine = document.getElementById('vitrine-posts');
+        const vitrine = document.getElementById('vitrine-carros');
 
-        function renderizarPosts(posts) {
+        function renderizarCarros(carros) {
             vitrine.innerHTML = ""; 
-            posts.forEach(post => {
+            carros.forEach(carro => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.setAttribute('onclick', 'tocarTorcida()');
+                card.setAttribute('onclick', 'tocarSom()');
                 
                 card.innerHTML = `
-                    <img src="${post.img}" alt="${post.titulo}">
+                    <img src="${carro.img}" alt="${carro.nome}">
                     <div class="card-content">
-                        <h3>${post.titulo}</h3>
-                        <p>${post.desc}</p>
-                        <button class="btn-interagir">Vibrar Torcida 🔊</button>
+                        <h3>${carro.nome}</h3>
+                        <p>${carro.desc}</p>
+                        <button class="btn-interagir">Ouvir Motor 🔊</button>
                     </div>
                 `;
                 vitrine.appendChild(card);
             });
         }
 
-        function filtrarPosts() {
+        function filtrarCarros() {
             const termoBusca = document.getElementById('busca').value.toLowerCase();
-            const postsFiltrados = listaPosts.filter(post => 
-                post.titulo.toLowerCase().includes(termoBusca)
+            const carrosFiltrados = listaCarros.filter(carro => 
+                carro.nome.toLowerCase().includes(termoBusca)
             );
-            renderizarPosts(postsFiltrados);
+            renderizarCarros(carrosFiltrados);
         }
 
-        function tocarTorcida() {
-            const som = document.getElementById('som-torcida');
+        function tocarSom() {
+            const som = document.getElementById('som-motor');
             som.currentTime = 0; 
-            som.play().catch(error => console.log("Clique interativo necessário."));
+            som.play().catch(error => console.log("Clique interativo necessário para reproduzir áudio."));
         }
 
         // Função para alternar o Tema (Claro / Escuro)
@@ -293,8 +287,8 @@
             }
         }
 
-        // Inicializa com a lista completa
-        renderizarPosts(listaPosts);
+        // Inicializa a vitrine
+        renderizarCarros(listaCarros);
     </script>
 </body>
 </html>
